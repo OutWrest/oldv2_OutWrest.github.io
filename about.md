@@ -4,6 +4,6 @@ title: /about
 permalink: /about/
 ---
 
-#whoami
+# whoami
 
 Like-minded indivduals playing CTFs
