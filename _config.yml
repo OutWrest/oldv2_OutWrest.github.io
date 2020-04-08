@@ -11,7 +11,7 @@ header_pages:
 
 style: dark
 
-footer: 'follow us on <a href="https://twitter.com/">twitter</a>'
+footer: '<a href="https://ctftime.org/team/116013">CTFTime</a>'
 
 # Build settings
 markdown: kramdown
