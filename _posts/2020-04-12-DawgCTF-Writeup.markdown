@@ -488,8 +488,6 @@ def solve(data):
                                     print("nothing")
                                     exit()
     return test
-    
-
 n = Netcat('ctf.umbccd.io', 5200)
 data = n.readtext()
 data = n.readtext()
