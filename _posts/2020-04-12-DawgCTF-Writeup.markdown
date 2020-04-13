@@ -236,6 +236,12 @@ There isn't much to say then that the server sents encoded text with several dif
 
 {% highlight python %}
 import socket
+from base64 import b64decode,b16decode,b32decode
+import string
+import re
+import fractions
+from caesarcipher import CaesarCipher
+import math
  
 class Netcat:
 
@@ -284,35 +290,215 @@ class Netcat:
 
         self.socket.close()
 
-def solve(score):
-    score = score.replace('love', '0')
-    score = score.replace('game', '45')
-    score = score.replace('set', '6')
-    l, r = map(int,score.split('-'))
-    if l > r:
-        return '0'
-    else:
-        return '1'
+#https://exercism.io/tracks/python/exercises/atbash-cipher/solutions/2b513bc799984cc7aeb53513b81824d7
+DECODE_TABLE = str.maketrans(string.ascii_uppercase,''.join(reversed(string.ascii_uppercase)),string.whitespace)
 
-n = Netcat('arthurashe.ctf.umbccd.io', 8411)
+def decodeatbash(encryptedstring):
+
+    return encryptedstring.translate(DECODE_TABLE)
+
+
+#https://exercism.io/tracks/python/exercises/affine-cipher/solutions/4d13100fe5ff433493b003b046273f50
+from string import ascii_uppercase
+from math import gcd
+
+lower = ascii_uppercase
+
+def decode(ciphered_text, a, b, m=26):
+
+    if gcd(a, 26) != 1:
+        raise ValueError('a and 26 are not coprime. Please try again.')
+
+    msg = ''.join(x for x in ciphered_text if x.isalnum())
+    out = ''
+    n = 1
+    count = 1
+
+    while True:
+        if a*n > m*count:
+            if a*n == (m*count) + 1:
+                break
+            count += 1
+        n += 1
+
+    for char in msg:
+        if char.isalpha():
+            d = int((n*(lower.index(char) - b)) % m)
+            out += lower[d]
+
+        else:
+            out += char
+
+    return out
+
+
+#https://www.geeksforgeeks.org/rail-fence-cipher-encryption-decryption/
+def decryptRailFence(cipher, key): 
+    rail = [['\n' for i in range(len(cipher))]  
+                  for j in range(key)] 
+      
+    # to find the direction 
+    dir_down = None
+    row, col = 0, 0
+      
+    # mark the places with '*' 
+    for i in range(len(cipher)): 
+        if row == 0: 
+            dir_down = True
+        if row == key - 1: 
+            dir_down = False
+          
+        # place the marker 
+        rail[row][col] = '*'
+        col += 1
+          
+        # find the next row  
+        # using direction flag 
+        if dir_down: 
+            row += 1
+        else: 
+            row -= 1
+    index = 0
+    for i in range(key): 
+        for j in range(len(cipher)): 
+            if ((rail[i][j] == '*') and
+               (index < len(cipher))): 
+                rail[i][j] = cipher[index] 
+                index += 1
+    result = [] 
+    row, col = 0, 0
+    for i in range(len(cipher)):  
+        if row == 0: 
+            dir_down = True
+        if row == key-1: 
+            dir_down = False
+        if (rail[row][col] != '*'): 
+            result.append(rail[row][col]) 
+            col += 1
+        if dir_down: 
+            row += 1
+        else: 
+            row -= 1
+    return("".join(result)) 
+
+#https://www.dotnetperls.com/rot13-python
+def rot13(s):
+    result = ""
+
+    # Loop over characters.
+    for v in s:
+        # Convert to number with ord.
+        c = ord(v)
+
+        # Shift number back or forward.
+        if c >= ord('a') and c <= ord('z'):
+            if c > ord('m'):
+                c -= 13
+            else:
+                c += 13
+        elif c >= ord('A') and c <= ord('Z'):
+            if c > ord('M'):
+                c -= 13
+            else:
+                c += 13
+
+        # Append to result.
+        result += chr(c)
+
+    # Return transformation.
+    return result
+
+def rot16(s):
+    result = ""
+
+    # Loop over characters.
+    for v in s:
+        # Convert to number with ord.
+        c = ord(v)
+
+        # Shift number back or forward.
+        if c >= ord('a') and c <= ord('z'):
+            if c > ord('m'):
+                c -= 16
+            else:
+                c += 16
+        elif c >= ord('A') and c <= ord('Z'):
+            if c > ord('M'):
+                c -= 16
+            else:
+                c += 16
+
+        # Append to result.
+        result += chr(c)
+
+    # Return transformation.
+    return result
+
+def solve(data):
+    try:
+        #base64
+        test = b64decode(data).decode('utf-8')
+        if 'DogeCTF' not in test:
+            errorout()
+    except:
+        try:
+            #base32
+            test = b32decode(data).decode('utf-8')
+            if 'DogeCTF' not in test:
+                errorout()
+        except:
+            try:
+                #base16
+                test = b16decode(data).decode('utf-8')
+                if 'DogeCTF' not in test:
+                    errorout()
+            except:
+                try:
+                    #atbash
+                    test = decodeatbash(data)
+                    if 'DogeCTF'.upper() not in test:
+                        errorout()
+                except:
+                    try:
+                        #affine b=6 a=9
+                        test = decode(data,9,6)
+                        if 'DogeCTF'.upper() not in test:
+                            errorout()
+                        else:
+                            test = 'DOGECTF{'+test[7:]+'}'
+                    except:
+                        try:
+                            #railfence key=3
+                            test = decryptRailFence(data, 3)
+                            if 'DogeCTF'.upper() not in test:
+                                errorout()
+                        except:
+                            try:
+                                #rot13
+                                test = CaesarCipher(data,offset=13).decoded
+                                if 'DogeCTF' not in test:
+                                    errorout()
+                            except:
+                                try:
+                                    #rot16
+                                    test =  CaesarCipher(data,offset=16).decoded
+                                    if 'DogeCTF' not in test:
+                                        errorout()
+                                except:
+                                    print("nothing")
+                                    exit()
+    return test
+    
+
+n = Netcat('ctf.umbccd.io', 5200)
 data = n.readtext()
-n.sendline('Y')
 data = n.readtext()
-txt = ''
-while 'result' in data:
+data = data.split('\n')[-2]
+while True:
     print(data)
-    before, after = data.index(' is ') + len(' is '),data.index('.',data.index(' is '))
-    score = data[before:after]
-
-    out = solve(score)
-    txt += out
-
-    n.sendline(out)
-    data = n.readtext()
-
+    data = solve(data)
+    n.sendline(data)
 print(data)
-data = n.readtext()
-print(txt)
 n.close()
 {% endhighlight %}
 
