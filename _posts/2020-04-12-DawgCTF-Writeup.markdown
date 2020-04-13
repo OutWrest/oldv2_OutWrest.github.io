@@ -14,18 +14,18 @@ It was terribly fun. I don't know if that is good but I enjoyed it. Since I am s
 # Ask Nicely
 Opening the initital file in IDA reveals that `flag()` funtion will be called after giving a set string.
 
-![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely1.png)
+![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_1.png)
 
 I immediately went the `flag()` and saw it was just simiple decimal to ASCII.
 
-![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely2.png)
+![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_2.png)
 
 Putting it in an online converter leads to flag:
 `DawgCTF{+h@nK_Y0U}`
 
 Looking back the funtions I can see that a I can determine the initial string to have the program call the `flag()` for me. 
 
-![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely3.png)
+![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_3.png)
 
 
 ## Coding
@@ -324,7 +324,7 @@ Below is the only one I enjoyed
 # Benford's Law Firm, LLC
 [Benford's Law][Benford-Law] describes frequencies asscoited with leading numbers. And I was given many csv files to analyze for any anomalous activities.
 
-![Benford's Law frequency distribution](/assets/images/DawgCTF/benford)
+![Benford's Law frequency distribution](/assets/images/DawgCTF/benford.png)
 
 Using the [Wikipedia page][Benford-Law] I was able to make a script to analyze all the files given and return with the one that was least completant with Benford's Law, suggesting that there has been some anomalous activities.
 
