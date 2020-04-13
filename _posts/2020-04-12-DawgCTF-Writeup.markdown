@@ -12,27 +12,27 @@ It was terribly fun. I don't know if that is good but I enjoyed it. Since I am s
 ## Reversing
 
 # Ask Nicely
-Opening the initital file in IDA reveals that `flag()` funtion will be called after giving a set string.
+Opening the initial file in IDA reveals that `flag()` function will be called after giving a set string.
 
 ![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_1.png)
 
-I immediately went the `flag()` and saw it was just simiple decimal to ASCII.
+I immediately went the `flag()` and saw it was just simple decimal to ASCII.
 
 ![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_2.png)
 
 Putting it in an online converter leads to flag:
 `DawgCTF{+h@nK_Y0U}`
 
-Looking back the funtions I can see that a I can determine the initial string to have the program call the `flag()` for me. 
+Looking back at the functions I can see that I can determine the initial string to have the program call the `flag()` for me. 
 
 ![DawgCTF Team Score](/assets/images/DawgCTF/ask-nicely_3.png)
 
 
 ## Coding
-My favorite catorgiy. In most of the coding challenges, it wasn't convenient to use `pwntools` due to some linux issues. I used a socket [Netcat ibrary][Netcat-Library-github] I had found online.
+My favorite category. In most of the coding challenges, it wasn't convenient to use `pwntools` due to some Linux issues. I used a socket [Netcat ibrary][Netcat-Library-github] I had found online.
 
 # Miracle Mile
-In this challenge I had to connect to a server and recive miles and time, and my goal was to calculate the pace of the theortical runner. My two main problems were figuring out the format and making sure that the data is sent correctly. Through trial and error, I was able to get the code below to work.
+In this challenge, I had to connect to a server and receive miles and time, and my goal was to calculate the pace of the theoretical runner. My two main problems were figuring out the format and making sure that the data is sent correctly. Through trial and error, I was able to get the code below to work.
 
 {% highlight python %}
 import socket
@@ -123,9 +123,9 @@ n.close()
 {% endhighlight %}
 
 # Baby Onion
-Presented with a **100 megabyte**  `.Onion` file, I didn't know what to do until I read the description of the challenge which mentioned the famous Shrek quote: *Ogres are like Onions, they have layers.* The quote hinted that there maybe different layers of encryptions. A small part of the is shown below
+Presented with a **100 megabyte**  `.Onion` file, I didn't know what to do until I read the description of the challenge which mentioned the famous Shrek quote: *Ogres are like Onions, they have layers.* The quote hinted that there may be different layers of encryptions. A small part of it is shown below:
 
-`4e4755304e7a55314d7a41305a5464684e54557a4d54526b4e3245304d544d774e5745314e4459304e6a67305a5455304e` Decoding it by hex to ASCII leads to `NGU0NzU1MzA0ZTdhNTUzMTRkN2E0MTMwNWE1NDY0Njg0ZTU0N` Which looks like base64, decoing back to ASCII leads to `4e4755304e7a55314d7a41305a5464684e54` Bingo, we have the layers.
+*4e4755304e7a55314d7a41305a5464684e54557a4d54526b4e3245304d544d774e5745314e4459304e6a67305a5455304e* Decoding it by hex to ASCII leads to *NGU0NzU1MzA0ZTdhNTUzMTRkN2E0MTMwNWE1NDY0Njg0ZTU0N* Which looks like base64, decoing back to ASCII leads to *4e4755304e7a55314d7a41305a5464684e54* Bingo, we have the layers.
 
 I wrote a simple little python script to do exactly just that to the file
 
@@ -146,7 +146,7 @@ print(r)
 {% endhighlight %}
 
 # Arthur Ashe
-In this challenge, I had to determine which team is ahead by scores by inputting one or a zero based on the input. I quickly figured out the games were tennis since the words *love, game, set* which correspond to *0, 45, and 6* respectivly. Giving the right answers to all the questions, ends with a `Thank you` and a closed connection. This led to realize that the flag is something that we already figured out, the input. The ones and zeros are binary.
+In this challenge, I had to determine which team is ahead by scores by inputting one or a zero based on the input. I quickly figured out the games were tennis since the words *love, game, set* which correspond to *0, 45, and 6* respectively. Giving the right answers to all the questions ends with a *Thank you* and a closed connection. This led to realize that the flag is something that we already figured out, the input. The ones and zeros are binary.
 
 The code below worked to get me the flag by doing that. 
 {% highlight python %}
@@ -232,7 +232,7 @@ n.close()
 {% endhighlight %}
 
 # Man these spot the difference games are getting hard
-There isn't much to say than that the server sents encoded text with several different encryption methods. I wrote code to check each one and determine flag.
+There isn't much to say then that the server sents encoded text with several different encryption methods. I wrote code to check each one and determine the flag.
 
 {% highlight python %}
 import socket
@@ -316,17 +316,17 @@ print(txt)
 n.close()
 {% endhighlight %}
 
-All I had to do was to decode the binary output through an online convertor to get the flag.
+All I had to do was to decode the binary output through an online converter to get the flag.
 
 ## Forensics
 Below is the only one I enjoyed
 
 # Benford's Law Firm, LLC
-[Benford's Law][Benford-Law] describes frequencies asscoited with leading numbers. And I was given many csv files to analyze for any anomalous activities.
+[Benford's Law][Benford-Law] describes frequencies associated with leading numbers. And I was given many CSV files to analyze for any anomalous activities.
 
 ![Benford's Law frequency distribution](/assets/images/DawgCTF/benford.png)
 
-Using the [Wikipedia page][Benford-Law] I was able to make a script to analyze all the files given and return with the one that was least completant with Benford's Law, suggesting that there has been some anomalous activities.
+Using the [Wikipedia page][Benford-Law] I was able to make a script to analyze all the files given and return with the one that was least compliant with Benford's Law, suggesting that there have been some anomalous activities.
 
 {% highlight python %}
 import csv
