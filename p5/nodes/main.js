@@ -3,10 +3,15 @@ let speed = 0.1;
 let split = 0.023;
 let size_after_split = 1.75;
 
-let initial_nodes = 50;
+let initial_nodes = 35;
 
 let colors = [
   [255, 95, 77],
+  [18, 53, 86],
+  [250, 208, 38],
+  [252, 148, 58],
+  [254, 95, 76],
+  [18, 53, 86],
   [18, 53, 86]
 ];
 
@@ -30,7 +35,7 @@ function setup() {
 function draw() {
   paths.forEach(el => el.update());
   
-  if (random(0, 1) < split) {
+  if (random(0, 1) < split*1.75) {
     paths.push( new node(
       initial_size,
       width/2,

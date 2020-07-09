@@ -7,7 +7,7 @@ class node {
   }
   
   update() {
-    if (this.diameter>2) {
+    if (this.diameter>1.5) {
       this.draw();
       
       this.loc = this.loc.map((l, i) => l + this.veo[i]);
