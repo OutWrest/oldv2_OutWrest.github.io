@@ -14,7 +14,7 @@ class node {
 
       this.veo = this.veo.map((v, i) => v + [random(-speed, speed), random(-speed, speed)][i]);
       
-      var sum = this.veo.reduce(function(a, b){
+      let sum = this.veo.reduce(function(a, b){
         return a + b;
       }, 0);
       
@@ -23,9 +23,9 @@ class node {
       }  
       
       if (random(0, 1) < split) {
-        var dia = sqrt(PI*sq(this.diameter/2)/2/PI)*2;
+        let dia = sqrt(PI*sq(this.diameter/2)/size_after_split/PI)*2;
         
-        var new_node = new node(
+        let new_node = new node(
           dia,
           this.loc[0],
           this.loc[1],
