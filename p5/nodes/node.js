@@ -8,7 +8,7 @@ class node {
   
   update() {
     if (this.diameter>2) {
-      print(paths.length);
+      this.draw();
       
       this.loc = this.loc.map((l, i) => l + this.veo[i]);
 
@@ -39,11 +39,15 @@ class node {
         this.diameter = dia;
       }
     }
+    else {
+      paths.splice(paths.indexOf(this), 1);
+    }
   }
   
   draw() {
     if (this.diameter>2) {
       noStroke();
+      smooth();
       fill(this.col);
       circle(this.loc[0], this.loc[1], this.diameter);
     }
