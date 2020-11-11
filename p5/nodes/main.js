@@ -52,9 +52,9 @@ function draw() {
   textAlign(CENTER);
   textStyle(BOLD);
   fill(colors[1]);
-  text('Beyond The Five', width/2, height/2);
+  //text('Beyond The Five', width/2, height/2);
   fill(colors[0]);
-  text('Anniversary', (width/2), height*(2/3));
+  //text('Anniversary', (width/2), height*(2/3));
 }
 
 function mousePressed() {
