@@ -1,0 +1,19 @@
+h1 {
+    flex: 0 0 auto;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    height: inherit;
+    background-color: #f4f1de;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.container {
+    height: inherit;
+    width: inherit;
+}
