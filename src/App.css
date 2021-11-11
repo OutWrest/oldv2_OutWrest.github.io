@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
-    background-color: #3d405b;
+    background-color: #f4f1de;
+    color: #3d405b;
 }
 
 #root {
@@ -9,5 +10,6 @@ html, body {
 }
 
 .App {
-    text-align: center;
+    height: inherit;
+    width: inherit;
 }

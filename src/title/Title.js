@@ -4,10 +4,14 @@ import './Title.css'
 function Title() {
     return (
         <Container>
-            <Container fluid>
-                <h1>Salah Abbas</h1>
-            </Container>
-            <h1>Hello World</h1>
+            <div className="title">
+                <h1>Logan Coats</h1>
+            </div>
+            <div className="title">
+                <canvas>
+                    
+                </canvas>
+            </div>
         </Container>
     );
 }

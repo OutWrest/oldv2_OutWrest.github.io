@@ -1,9 +1,14 @@
-import Title from './title/Title.js';
+import Title from './title/Title';
 import './App.css'
 
 function App() {
     return (
-        Title()
+        <div className="App">
+            <Title />
+            <div className="subtitle">
+                <h2>Test</h2>
+            </div>
+        </div>
     );
 }
 
