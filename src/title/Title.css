@@ -13,6 +13,11 @@ h1 {
     position: absolute;
 }
 
+.title.text {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
 .container {
     height: inherit;
     width: inherit;

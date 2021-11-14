@@ -5,8 +5,8 @@ import './Title.css'
 function Title() {
     return (
         <Container>
-            <div className="title">
-                <h1>Test Title</h1>
+            <div className="title text">
+                <h1>Salah Abbas</h1>
             </div>
             <div className="title">
                 <Background />

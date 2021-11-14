@@ -2,20 +2,29 @@ import Sketch from "react-p5";
 import Victor from 'victor';
 
 const MAX_BALLS = 20;
-const MAX_LINE_POS = 50;
+const MAX_LINE_POS = 75;
+const COLORS = [
+    '#E07A5F',
+    '#3D405B',
+    '#3D405B',
+    '#3D405B',
+    '#81B29A',
+    '#F2CC8F'
+];
 
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1) + Math.ceil(min));
 }
 
 class Ball {
-    constructor(x, y, w, g) {
+    constructor(x, y, w, g, color) {
         this.position = new Victor(x, y);
         this.w = w;
         this.gravity = g;
         this.velocity = new Victor(0, 0);
         this.acceration = new Victor(0, 0);
         this.cooldown = 0; // in terms of frames
+        this.color = color;
     }
 
     onLine(x1, y1, x2, y2, x, y) {
@@ -40,14 +49,12 @@ class Ball {
 
                 if (this.onLine(line_pos[i].x1, line_pos[i].y1, line_pos[i].x2, line_pos[i].y2, this.position.x, this.position.y)) {
                     console.log("Bounce");
-
                     this.cooldown = 15;
 
                     // using closest point to line segment, find angle in degrees
                     let angle = Math.atan2(closest_y - this.position.y, closest_x - this.position.x);
                     angle = angle * 180 / Math.PI;
                     this.velocity.rotateDeg(angle + 180).multiplyScalar(0.90);
-                    console.log(angle);
                 }
             }
         }
@@ -62,13 +69,14 @@ class Ball {
     }
 
     draw(p5) {
+        p5.fill(this.color);
         p5.ellipse(this.position.x, this.position.y, this.w);
     }
 }
 
 function Background(props) {
-    let balls = [];
     let line_pos = [];
+    let balls = [];
 
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(p5.windowWidth - 17, p5.windowHeight - 17).parent(canvasParentRef);
@@ -86,11 +94,11 @@ function Background(props) {
             }
             
             line_pos.push({x1: p5.mouseX, y1: p5.mouseY, x2: p5.pmouseX, y2: p5.pmouseY});
+        }
 
-            for (let i = 0; i < line_pos.length; i++) {
-                p5.line(line_pos[i].x1, line_pos[i].y1, line_pos[i].x2, line_pos[i].y2);
-            }
-        }   
+        line_pos.forEach((line) => {
+            p5.line(line.x1, line.y1, line.x2, line.y2);
+        });
 
         p5.noStroke();
 
@@ -109,7 +117,7 @@ function Background(props) {
         });
 
         if (balls.length < MAX_BALLS) {
-            balls.push(new Ball(getRandomIntInclusive(0, p5.windowWidth), 0, getRandomIntInclusive(20, 50), getRandomIntInclusive(1, 5)));
+            balls.push(new Ball(getRandomIntInclusive(0, p5.windowWidth), 0, getRandomIntInclusive(20, 50), getRandomIntInclusive(1, 5), COLORS[getRandomIntInclusive(0, COLORS.length - 1)]));
         }
 
     }
