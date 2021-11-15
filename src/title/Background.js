@@ -37,7 +37,6 @@ class Ball {
 
     update(line_pos) {
         // check for collisions 
-
         if (this.cooldown <= 0) {
             for (let i = 0; i < line_pos.length; i++) {
                 // find dist between x1 y1 and x2 y2
