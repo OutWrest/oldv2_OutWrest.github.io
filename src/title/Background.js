@@ -1,7 +1,7 @@
 import Sketch from "react-p5";
 import Victor from 'victor';
 
-const MAX_BALLS = 20;
+const MAX_BALLS = 20000;
 const MAX_LINE_POS = 75;
 const COLORS = [
     '#E07A5F',
